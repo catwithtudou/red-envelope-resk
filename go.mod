@@ -35,12 +35,13 @@ require (
 	github.com/lestrrat/go-envload v0.0.0-20180220120943-6ed08b54a570 // indirect
 	github.com/lestrrat/go-file-rotatelogs v0.0.0-20180223000712-d3151e2a480f
 	github.com/lestrrat/go-strftime v0.0.0-20180220042222-ba3bf9c1d042 // indirect
-	github.com/mattn/go-colorable v0.1.6 // indirect
+	github.com/mattn/go-colorable v0.1.6
 	github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b // indirect
 	github.com/microcosm-cc/bluemonday v1.0.2 // indirect
 	github.com/moul/http2curl v1.0.0 // indirect
 	github.com/onsi/ginkgo v1.12.3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
 	github.com/ryanuber/columnize v2.1.0+incompatible // indirect
 	github.com/segmentio/ksuid v1.0.2
 	github.com/sergi/go-diff v1.1.0 // indirect
@@ -48,10 +49,9 @@ require (
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
 	github.com/sirupsen/logrus v1.6.0
 	github.com/smartystreets/goconvey v1.6.4
-	github.com/stretchr/objx v0.1.1 // indirect
 	github.com/tebeka/strftime v0.1.4 // indirect
 	github.com/tietang/dbx v1.0.1
-	github.com/tietang/go-utils v0.1.3 // indirect
+	github.com/tietang/go-utils v0.1.3
 	github.com/tietang/props v2.2.0+incompatible
 	github.com/valyala/fasttemplate v1.1.0 // indirect
 	github.com/x-cray/logrus-prefixed-formatter v0.5.2
