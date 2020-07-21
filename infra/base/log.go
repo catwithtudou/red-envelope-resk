@@ -14,9 +14,10 @@ import (
 func init() {
 	// 定义日志格式
 	formatter := &prefixed.TextFormatter{}
+	//formatter := &log.TextFormatter{}
 	//开启完整时间戳输出和时间戳格式
 	formatter.FullTimestamp = true
-	formatter.TimestampFormat = "2006-01-02.15:04:05.000000"
+	formatter.TimestampFormat = "2006-01-02.15:04:05"
 	// 控制台高亮显示
 	formatter.ForceFormatting = true
 	formatter.ForceColors = true
@@ -42,13 +43,15 @@ func init() {
 
 	//log.Info("测试")
 	//log.Debug("测试")
-	//日志文件和滚动配置
-	//github.com/lestrrat/go-file-rotatelogs
 
+
+
+	//日志文件和滚动配置
 	logFileSettings()
 
 }
 
+//logFileSettings 日志文件和滚动配置
 func logFileSettings() {
 
 	//配置日志输出目录

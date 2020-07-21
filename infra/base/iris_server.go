@@ -23,10 +23,13 @@ func (i *IrisServerStarter) Init(ctx infra.StarterContext) {
 	//创建iris application实例
 	irisApplication = initIris()
 	//日志组件配置和扩展
+	//统一成logrus格式
 	logger := irisApplication.Logger()
 	logger.Install(logrus.StandardLogger())
 
 }
+
+
 func (i *IrisServerStarter) Start(ctx infra.StarterContext) {
 	//把路由信息打印到控制台
 	routes := Iris().GetRoutes()
@@ -34,9 +37,13 @@ func (i *IrisServerStarter) Start(ctx infra.StarterContext) {
 		logrus.Info(r.Trace())
 	}
 	//启动iris
-	port := ctx.Props().GetDefault("app.server.port", "18080")
+	//获取端口配置信息
+	port := ctx.Props().GetDefault("app.server.port", "8080")
 	Iris().Run(iris.Addr(":" + port))
 }
+
+
+
 func (i *IrisServerStarter) StartBlocking() bool {
 	return true
 }
@@ -55,8 +62,9 @@ func initIris() *iris.Application {
 			status, ip, method, path string,
 			message interface{},
 			headerMessage interface{}) {
+
 			app.Logger().Infof("| %s | %s | %s | %s | %s | %s | %s | %s",
-				now.Format("2006-01-02.15:04:05.000000"),
+				now.Format("2006-01-02.15:04:05"),
 				latency.String(), status, ip, method, path, headerMessage, message,
 			)
 		},

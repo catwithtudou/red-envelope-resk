@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	dsName := "po:111111@tcp(192.168.232.175:3306)/po?charset=utf8&parseTime=true&loc=Local"
+	dsName := "root:@tcp(127.0.0.1:3306)/demo?charset=utf8&parseTime=true&loc=Local"
 	db, err := sql.Open("mysql", dsName)
 	if err != nil {
 		fmt.Println(err)
