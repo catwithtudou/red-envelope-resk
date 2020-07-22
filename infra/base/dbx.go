@@ -2,16 +2,18 @@ package base
 
 import (
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 	"github.com/tietang/dbx"
 	"github.com/tietang/props/kvs"
 	"red-envelope/infra"
+	"red-envelope/infra/logrus"
 )
 
 //dbx 数据库实例
 var database *dbx.Database
 
 func DbxDatabase() *dbx.Database {
+	Check(database)
 	return database
 }
 
@@ -28,11 +30,12 @@ func (s *DbxDatabaseStarter) Setup(ctx infra.StarterContext) {
 	if err != nil {
 		panic(err)
 	}
-	logrus.Info("mysql.conn url:", settings.ShortDataSourceName())
-	dbx, err := dbx.Open(settings)
+	log.Info("mysql.conn url:", settings.ShortDataSourceName())
+	db, err := dbx.Open(settings)
 	if err != nil {
 		panic(err)
 	}
-	logrus.Info(dbx.Ping())
-	database = dbx
+	log.Info(db.Ping())
+	db.SetLogger(logrus.NewUpperLogrusLogger())
+	database = db
 }

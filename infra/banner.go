@@ -2,8 +2,7 @@ package infra
 
 import "fmt"
 
-const (
-	banner1 = `
+const banner1 = `
 
           _____                    _____                    _____          
          /\    \                  /\    \                  /\    \         
@@ -29,9 +28,8 @@ const (
                                                                            
 
 `
-)
 
-//http://patorjk.com/software/taag/#p=testall&h=0&v=0&f=Graceful&t=red-envelope
+//http://patorjk.com/software/taag/#p=testall&h=0&v=0&f=Graceful&t=Resk
 func init() {
 	fmt.Println(banner1)
 

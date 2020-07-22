@@ -8,8 +8,8 @@ import (
 
 var props kvs.ConfigSource
 
-//Props 配置文件获取客户端
 func Props() kvs.ConfigSource {
+	Check(props)
 	return props
 }
 
