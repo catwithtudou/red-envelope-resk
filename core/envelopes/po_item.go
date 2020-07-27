@@ -9,7 +9,7 @@ import (
 
 type RedEnvelopeItem struct {
 	Id           int64           `db:"id,omitempty"`         //自增ID
-	ItemNo       int64           `db:"item_no,uni"`          //红包订单详情编号
+	ItemNo       string           `db:"item_no,uni"`          //红包订单详情编号
 	EnvelopeNo   string          `db:"envelope_no"`          //红包编号,红包唯一标识
 	RecvUsername sql.NullString  `db:"recv_username"`        //红包接收者用户名称
 	RecvUserId   string          `db:"recv_user_id"`         //红包接收者用户编号

@@ -43,8 +43,8 @@ func (dao *RedEnvelopeGoodsDao)GetOne(envelopeNo string) *RedEnvelopeGoods{
  */
 func (dao *RedEnvelopeGoodsDao)UpdateBalance(
 	envelopeNo string,amount decimal.Decimal)(int64,error){
-	sql:="update red_envelope_goods set remain_amount=remain_amount-CAST(? AS DECIMAL(30,6)) remain_quantity=remain_quantity-1 where envelope_no = ? "  +
-		"and remain_quantity > 0" +
+	sql:="update red_envelope_goods set remain_amount=remain_amount-CAST(? AS DECIMAL(30,6)), remain_quantity=remain_quantity-1 where envelope_no = ? "  +
+		"and remain_quantity > 0 " +
 		"and remain_amount >= CAST(? AS DECIMAL(30,6)) "
 	rs,err:=dao.runner.Exec(sql,amount.String(),envelopeNo,amount.String())
 	if err!=nil{

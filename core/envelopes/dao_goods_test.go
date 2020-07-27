@@ -87,12 +87,21 @@ func TestRedEnvelopeGoodsDao_UpdateBalance(t *testing.T) {
 			id,err:=dao.Insert(goods)
 			So(err,ShouldBeNil)
 			So(id,ShouldBeGreaterThan,0)
-			good:=dao.GetOne(goods.EnvelopeNo)
-			So(good,ShouldNotBeNil)
-			So(good.Amount.String(),ShouldEqual,goods.Amount.String())
-			So(good.AmountOne.String(),ShouldEqual,goods.AmountOne.String())
-			So(good.CreatedAt,ShouldNotBeNil)
-			So(good.UpdatedAt,ShouldNotBeNil)
+
+			//1.余额充足，数量足够
+			Convey("更新红包余额和数量", func() {
+
+				num,err:=dao.UpdateBalance(goods.EnvelopeNo,decimal.NewFromFloat(1))
+				So(err,ShouldBeNil)
+				So(num,ShouldEqual,1)
+
+				good:=dao.GetOne(goods.EnvelopeNo)
+				So(good,ShouldNotBeNil)
+				So(good.RemainAmount.String(),ShouldEqual,goods.Amount.Sub(decimal.NewFromFloat(1)).String())
+				So(good.RemainQuantity,ShouldEqual,goods.RemainQuantity-1)
+				So(good.CreatedAt,ShouldNotBeNil)
+				So(good.UpdatedAt,ShouldNotBeNil)
+			})
 		})
 		return nil
 	})
