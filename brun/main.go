@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/tietang/props/ini"
 	"github.com/tietang/props/kvs"
-	"red-envelope/infra"
 	_ "red-envelope"
+	"red-envelope/infra"
 )
 
 func main() {
