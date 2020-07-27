@@ -99,9 +99,17 @@ func (a *accountService) Transfer(dto services.AccountTransferDTO) (services.Tra
 			errors.New("如果changeFlag为收入，那么changeType必须大于0")
 		}
 	}
-
 	status,err:=domain.Transfer(dto)
-
+	//执行用户若执行正确，则目标用户相应更新
+	if status == services.TransferedStatusSuccess{
+		backWardDto := dto
+		backWardDto.TradeBody = dto.TradeTarget
+		backWardDto.TradeTarget = dto.TradeBody
+		backWardDto.ChangeType = -dto.ChangeType
+		backWardDto.ChangeFlag = -dto.ChangeFlag
+		status,err = domain.Transfer(backWardDto)
+		return status,err
+	}
 	return status,err
 }
 
