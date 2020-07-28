@@ -37,7 +37,6 @@ func (dao *RedEnvelopeItemDao)FindItems(envelopeNo string)(res []*RedEnvelopeIte
 	err:=dao.runner.Find(&res,sql,envelopeNo)
 	if err!=nil{
 		logrus.Error(err)
-		return 
 	}
 	return 
 }
@@ -68,3 +67,4 @@ func (dao *RedEnvelopeItemDao) ListReceivedItems(userId string, page, size int)(
 	}
 	return items
 }
+
