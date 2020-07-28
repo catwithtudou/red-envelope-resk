@@ -76,6 +76,7 @@ func (this *RedEnvelopeActivity) CopyTo(target *RedEnvelopeActivity) {
 	target.PayStatus = this.PayStatus
 	target.CreatedAt = this.CreatedAt
 	target.UpdatedAt = this.UpdatedAt
+	target.AccountNo = this.AccountNo
 }
 
 type RedEnvelopeGoodsDTO struct {

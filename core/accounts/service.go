@@ -3,8 +3,6 @@ package accounts
 import (
 	"errors"
 	"github.com/shopspring/decimal"
-	"github.com/sirupsen/logrus"
-	"gopkg.in/go-playground/validator.v9"
 	"red-envelope/infra/base"
 	"red-envelope/services"
 	"sync"
@@ -28,19 +26,8 @@ type accountService struct{
 func (a *accountService) CreateAccount(dto services.AccountCreatedDTO) (*services.AccountDTO, error) {
 	domain:=accountDomain{}
 	//验证输入参数是否合法
-	err:=base.Validate().Struct(dto)
-	if err!=nil {
-		_,ok:=err.(*validator.InvalidValidationError)
-		if ok{
-			logrus.Error("验证错误",err)
-		}
-		errs,ok := err.(validator.ValidationErrors)
-		if ok{
-			for _,e:=range errs{
-				logrus.Error(e.Translate(base.Transtate()))
-			}
-		}
-		return nil,err
+	if err := base.ValidateStruct(&dto); err != nil {
+		return nil, err
 	}
 	//执行账户创建的业务逻辑
 	amount,err := decimal.NewFromString(dto.Amount)
@@ -68,19 +55,8 @@ func (a *accountService) Transfer(dto services.AccountTransferDTO) (services.Tra
 	//验证参数
 	domain:=accountDomain{}
 	//验证输入参数是否合法
-	err:=base.Validate().Struct(dto)
-	if err!=nil {
-		_,ok:=err.(*validator.InvalidValidationError)
-		if ok{
-			logrus.Error("验证错误",err)
-		}
-		errs,ok := err.(validator.ValidationErrors)
-		if ok{
-			for _,e:=range errs{
-				logrus.Error(e.Translate(base.Transtate()))
-			}
-		}
-		return services.TransferedStatusFailure,err
+	if err := base.ValidateStruct(&dto); err != nil {
+		return services.TransferedStatusFailure, err
 	}
 	//执行转账逻辑
 	amount,err:=decimal.NewFromString(dto.AmountStr)

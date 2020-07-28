@@ -35,13 +35,20 @@ func (d *goodsDomain) Create(
 	if d.EnvelopeType == services.LuckyEnvelopeType{
 		d.AmountOne = decimal.NewFromFloat(0)
 	}
-	d.RemainAmount=goods.Amount
+	d.RemainAmount=d.Amount
+	//记录生成和更新时间
+	now:=time.Now()
+	d.CreatedAt=now
+	d.UpdatedAt=now
 	//计算过期时间
-	d.ExpiredAt=time.Now().Add(24 * time.Hour)
+	d.ExpiredAt=now.Add(24 * time.Hour)
 	//改变状态
 	d.Status = services.OrderCreate
+	//TODO:没有考虑OrderType和PayStatus
+
 	//生成红包编号
 	d.createEnvelopeNo()
+
 }
 
 //保存到红包商品表

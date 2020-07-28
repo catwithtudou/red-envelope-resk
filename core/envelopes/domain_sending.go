@@ -97,5 +97,6 @@ func (d *goodsDomain)SendOut(goods services.RedEnvelopeGoodsDTO)(activity *servi
 	//旧件金额无问题则返回活动
 	activity.RedEnvelopeGoodsDTO= *d.RedEnvelopeGoods.ToDTO()
 
+
 	return activity,err
 }

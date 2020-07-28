@@ -9,7 +9,10 @@ import (
 	"sync"
 )
 
+var _ services.RedEnvelopeService = new(redEnvelopeService)
+
 var once sync.Once
+
 
 func init(){
 	once.Do(func() {
@@ -57,10 +60,13 @@ func (r *redEnvelopeService) SendOut(dto services.RedEnvelopeSendingDTO) (activi
 
 //
 func (r *redEnvelopeService) Receive(dto services.RedEnvelopeReceiveDTO) (item *services.RedEnvelopeItemDTO, err error) {
+	return
 }
 
 func (r *redEnvelopeService) Refund(envelopeNo string) (order *services.RedEnvelopeGoodsDTO) {
+	return
 }
 
 func (r *redEnvelopeService) Get(envelopeNo string) (order *services.RedEnvelopeGoodsDTO) {
+	return
 }

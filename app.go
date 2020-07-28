@@ -3,6 +3,7 @@ package red_envelope
 import (
 	_ "red-envelope/apis/web"
 	_ "red-envelope/core/accounts"
+	_ "red-envelope/core/envelopes"
 	"red-envelope/infra"
 	"red-envelope/infra/base"
 )
