@@ -41,7 +41,7 @@ const (
 )
 
 //账户类型
-type AccountType int8
+type AccountType int
 
 const(
 	EnvelopeAccountType AccountType = 1

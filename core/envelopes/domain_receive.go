@@ -38,7 +38,7 @@ func (d *goodsDomain)Receive(ctx context.Context,dto services.RedEnvelopeReceive
 	//4.使用红包算法计算红包金额
 	//nextAmount
 	nextAmount,_:=d.nextAmount(goods)
-	base.Tx(func(runner *dbx.TxRunner) error {
+	err =base.Tx(func(runner *dbx.TxRunner) error {
 		dao:=RedEnvelopeGoodsDao{runner: runner}
 
 		//5.使用乐观锁更新语句，尝试更新剩余数量和剩余金额：

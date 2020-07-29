@@ -130,6 +130,7 @@ func (a *accountDomain) TransferWithContextTx(ctx context.Context,dto services.A
 		accountLogDao := AccountLogDao{runner: runner}
 
 		rows, err := accountDao.UpdateBalance(dto.TradeBody.AccountNo, amount)
+		logrus.Info(rows)
 		if err != nil {
 			status = services.TransferedStatusFailure
 			return err
@@ -138,6 +139,7 @@ func (a *accountDomain) TransferWithContextTx(ctx context.Context,dto services.A
 			status = services.TransferedStatusSufficientFunds
 			return errors.New("余额不足")
 		}
+		logrus.Info(dto.TradeBody)
 		account := accountDao.GetOne(dto.TradeBody.AccountNo)
 		if account == nil {
 			return errors.New("账户出错")

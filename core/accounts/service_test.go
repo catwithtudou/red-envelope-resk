@@ -16,11 +16,11 @@ import (
 
 func TestAccountService_CreateAccount(t *testing.T) {
 	dto := services.AccountCreatedDTO{
-		UserId:       ksuid.New().Next().String(),
-		Username:     "测试用户",
-		Amount:       "100",
-		AccountName:  "测试账户",
-		AccountType:  2,
+		UserId:       "10001",
+		Username:     "系统红包账户",
+		Amount:       "10000000",
+		AccountName:  "系统红包账户",
+		AccountType:  int(services.SystemEnvelopeAccountType),
 		CurrencyCode: "CNY",
 	}
 	service := new(accountService)

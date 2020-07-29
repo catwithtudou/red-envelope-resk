@@ -17,7 +17,7 @@ func Validate() *validator.Validate {
 	return validate
 }
 
-func Transtate() ut.Translator {
+func Translate() ut.Translator {
 	Check(translator)
 	return translator
 }
