@@ -33,8 +33,7 @@ func (d *goodsDomain) Create(
 	//根据类型区分进行计算
 	if d.EnvelopeType == services.GeneralEnvelopeType{
 		d.Amount=goods.AmountOne.Mul(decimal.NewFromFloat(float64(goods.Quantity)))
-	}
-	if d.EnvelopeType == services.LuckyEnvelopeType{
+	}else if d.EnvelopeType == services.LuckyEnvelopeType{
 		d.AmountOne = decimal.NewFromFloat(0)
 	}
 	d.RemainAmount=d.Amount

@@ -51,6 +51,7 @@ func (d *goodsDomain)Receive(ctx context.Context,dto services.RedEnvelopeReceive
 
 		//6.保存订单明细数据
 		d.item.Quantity=1
+		//TODO:考虑PayStatus合理性
 		d.item.PayStatus=int(services.Paying)
 		d.item.AccountNo= dto.AccountNo
 		d.item.RemainAmount = goods.RemainAmount.Sub(nextAmount)
