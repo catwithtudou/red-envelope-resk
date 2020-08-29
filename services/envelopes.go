@@ -97,10 +97,11 @@ type RedEnvelopeGoodsDTO struct {
 	CreatedAt      time.Time       `json:"createdAt"`                            //创建时间
 	UpdatedAt      time.Time       `json:"updatedAt"`                            //更新时间
 	AccountNo      string          `json:"accountNo"`
+	OriginEnvelope string          `json:"originEnvelope"`
 }
 
 type RedEnvelopeItemDTO struct {
-	ItemNo       string           `json:"itemNo"`       //红包订单详情编号
+	ItemNo       string          `json:"itemNo"`       //红包订单详情编号
 	EnvelopeNo   string          `json:"envelopeNo"`   //订单编号 红包编号,红包唯一标识
 	RecvUsername string          `json:"recvUsername"` //红包接收者用户名称
 	RecvUserId   string          `json:"recvUserId"`   //红包接收者用户编号
@@ -113,17 +114,16 @@ type RedEnvelopeItemDTO struct {
 	UpdatedAt    time.Time       `json:"updatedAt"`    //更新时间
 }
 
-
-func (r *RedEnvelopeItemDTO)CopyTo(item *RedEnvelopeItemDTO){
-	item.ItemNo=r.ItemNo
-	item.EnvelopeNo=r.EnvelopeNo
-	item.RecvUsername=r.RecvUsername
-	item.RecvUserId=r.RecvUserId
-	item.Amount=r.Amount
-	item.Quantity=r.Quantity
-	item.RemainAmount=r.RemainAmount
-	item.AccountNo=r.AccountNo
-	item.PayStatus=r.PayStatus
-	item.CreatedAt=r.CreatedAt
-	item.UpdatedAt=r.UpdatedAt
+func (r *RedEnvelopeItemDTO) CopyTo(item *RedEnvelopeItemDTO) {
+	item.ItemNo = r.ItemNo
+	item.EnvelopeNo = r.EnvelopeNo
+	item.RecvUsername = r.RecvUsername
+	item.RecvUserId = r.RecvUserId
+	item.Amount = r.Amount
+	item.Quantity = r.Quantity
+	item.RemainAmount = r.RemainAmount
+	item.AccountNo = r.AccountNo
+	item.PayStatus = r.PayStatus
+	item.CreatedAt = r.CreatedAt
+	item.UpdatedAt = r.UpdatedAt
 }

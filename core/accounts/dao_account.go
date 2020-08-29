@@ -56,7 +56,7 @@ func (dao *AccountDao) Insert(a *Account) (id int64, err error) {
 func (dao *AccountDao) UpdateBalance(
 	accountNo string,
 	amount decimal.Decimal) (rows int64, err error) {
-	sql := "update account " +
+	sql := "update account" +
 		" set balance=balance+CAST(? AS DECIMAL(30,6))" +
 		" where account_no=? " +
 		" and balance>=-1*CAST(? AS DECIMAL(30,6)) "

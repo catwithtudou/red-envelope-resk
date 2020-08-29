@@ -21,16 +21,23 @@ const (
 	Paying
 	Payed
 	PayFailure
+
+	RefundNothing PayStatus = 61
+	Refunding     PayStatus = 62
+	Refunded      PayStatus = 63
+	RefundFailure PayStatus = 64
 )
 
 //红包订单状态：创建、发布、过期、失效
 type OrderStatus int
 
 const (
-	OrderCreate   OrderStatus = iota + 1
+	OrderCreate OrderStatus = iota + 1
 	OrderSending
 	OrderExpired
 	OrderDisabled
+	OrderExpiredRefundSuccessful
+	OrderExpiredRefundFailure
 )
 
 //红包类型：普通红包，碰运气红包

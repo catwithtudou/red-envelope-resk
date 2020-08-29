@@ -8,6 +8,7 @@ import (
 	_ "red-envelope/core/envelopes"
 	"red-envelope/infra"
 	"red-envelope/infra/base"
+	"red-envelope/jobs"
 )
 
 func init() {
@@ -16,6 +17,7 @@ func init() {
 	infra.Register(&base.ValidatorStarter{})
 	infra.Register(&base.GoRpcStarter{})
 	infra.Register(&gorpc.GoRpcApiStarter{})
+	infra.Register(&jobs.RefundExpiredJobStarter{})
 	infra.Register(&base.IrisServerStarter{})
 	infra.Register(&infra.WebApiStarter{})
 }

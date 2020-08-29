@@ -25,11 +25,11 @@ type RedEnvelopeGoods struct {
 	PayStatus      services.PayStatus   `db:"pay_status"`           //支付状态：未支付，支付中，已支付，支付失败
 	CreatedAt      time.Time            `db:"created_at,omitempty"` //创建时间
 	UpdatedAt      time.Time            `db:"updated_at,omitempty"` //更新时间
+	OriginEnvelopeNo      string            `db:"origin_envelope_no"` //原关联红包编号
 }
 
 func (po *RedEnvelopeGoods) ToDTO() *services.RedEnvelopeGoodsDTO {
 	dto := &services.RedEnvelopeGoodsDTO{
-
 		EnvelopeNo:     po.EnvelopeNo,
 		EnvelopeType:   po.EnvelopeType,
 		Username:       po.Username.String,
@@ -46,6 +46,7 @@ func (po *RedEnvelopeGoods) ToDTO() *services.RedEnvelopeGoodsDTO {
 		PayStatus:      po.PayStatus,
 		CreatedAt:      po.CreatedAt,
 		UpdatedAt:      po.UpdatedAt,
+		OriginEnvelope: po.OriginEnvelopeNo,
 	}
 	return dto
 }
@@ -68,4 +69,5 @@ func (po *RedEnvelopeGoods) FromDTO(dto *services.RedEnvelopeGoodsDTO) {
 	po.PayStatus = dto.PayStatus
 	po.CreatedAt = dto.CreatedAt
 	po.UpdatedAt = dto.UpdatedAt
+	po.OriginEnvelopeNo = dto.OriginEnvelope
 }

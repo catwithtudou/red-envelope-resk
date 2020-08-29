@@ -11,6 +11,7 @@ import (
 	"red-envelope/infra/algo"
 	"red-envelope/infra/base"
 	"red-envelope/services"
+	"time"
 )
 
 /**
@@ -26,7 +27,15 @@ func (d *goodsDomain)Receive(ctx context.Context,dto services.RedEnvelopeReceive
 	d.preCreateItem(dto)
 
 	//2.查询除当前红包的剩余数量和剩余金额信息
+	//
 	goods:=d.Get(dto.EnvelopeNo)
+
+
+	// 检验该红包是否已经过期
+	now:=time.Now().Unix()
+	if goods.ExpiredAt.Unix()< now {
+		return nil,errors.New("该红包已经过期")
+	}
 
 	//3. 校验剩余红包剩余金额 ：
 	// 如果没有剩余，直接返回无可用红包金额
@@ -81,16 +90,17 @@ func (d *goodsDomain)transfer(ctx context.Context,dto services.RedEnvelopeReceiv
 	//获取红包中间商户
 	systemAccount := base.GetSystemAccount()
 	//交易主体
-	body := services.TradeParticipator{
+	target := services.TradeParticipator{
 		AccountNo: systemAccount.AccountNo,
 		UserId:    systemAccount.UserId,
 		Username:  systemAccount.Username,
 	}
-	target := services.TradeParticipator{
+	body := services.TradeParticipator{
 		AccountNo: dto.AccountNo,
 		UserId:    dto.RecvUserId,
 		Username:  dto.RecvUsername,
 	}
+	//相对于红包中间商是支出
 	transfer := services.AccountTransferDTO{
 		TradeBody:   body,
 		TradeTarget: target,

@@ -58,7 +58,7 @@ func (dao *RedEnvelopeGoodsDao)UpdateBalance(
 //更新订单状态
 func (dao *RedEnvelopeGoodsDao)UpdateOrderStatus(
 	envelopeNo string,status services.OrderStatus)(int64,error){
-	sql:="update red_envelope_goods set order_status = ? where envelope_no = ?"
+	sql:="update red_envelope_goods set status = ? where envelope_no = ?"
 	rs,err:=dao.runner.Exec(sql,status,envelopeNo)
 	if err!=nil{
 		return 0,err
@@ -69,7 +69,7 @@ func (dao *RedEnvelopeGoodsDao)UpdateOrderStatus(
 //过期，把过期的所有红包都查询出来，分页，limit，offset size
 func (dao *RedEnvelopeGoodsDao) FindExpired(offset,size int)(res []RedEnvelopeGoods){
 	now:=time.Now()
-	sql:="select * from red_envelope_goods where expired_at > ? limit ?,?"
+	sql:="select * from red_envelope_goods where remain_quantity>0 and expired_at < ? and status<5 limit ?,?"
 	err:=dao.runner.Find(&res,sql,now,offset,size)
 	if err!=nil{
 		logrus.Error(err)
