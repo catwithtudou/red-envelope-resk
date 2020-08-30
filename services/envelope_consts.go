@@ -2,6 +2,7 @@ package services
 
 const (
 	DefaultBlessing = "恭喜发财"
+	DefaultTimeFormat = "2006-01-02.15:04:05"
 )
 
 //订单类型：发布单、退款单

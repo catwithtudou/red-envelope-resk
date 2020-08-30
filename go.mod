@@ -18,6 +18,7 @@ require (
 	github.com/go-playground/universal-translator v0.17.0
 	github.com/go-redsync/redsync v1.4.2
 	github.com/go-sql-driver/mysql v1.5.0
+	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/go-querystring v1.0.0 // indirect
 	github.com/gorilla/schema v1.1.0 // indirect
 	github.com/imkira/go-interpol v1.1.0 // indirect
@@ -42,6 +43,7 @@ require (
 	github.com/moul/http2curl v1.0.0 // indirect
 	github.com/onsi/ginkgo v1.12.3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/prometheus/common v0.13.0
 	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
 	github.com/ryanuber/columnize v2.1.0+incompatible // indirect
 	github.com/segmentio/ksuid v1.0.2
