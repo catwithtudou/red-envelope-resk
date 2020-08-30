@@ -75,5 +75,31 @@ func (dao *RedEnvelopeGoodsDao) FindExpired(offset,size int)(res []RedEnvelopeGo
 		logrus.Error(err)
 	}
 	return
+}
 
+func (dao *RedEnvelopeGoodsDao)Find(po *RedEnvelopeGoods,offset,limit int)(results []RedEnvelopeGoods){
+	err:=dao.runner.FindExample(po,&results)
+	if err!=nil{
+		logrus.Error(err)
+	}
+	return results
+}
+
+func (dao *RedEnvelopeGoodsDao)FindByUser(userId string,offset,limit int)(results []RedEnvelopeGoods){
+	sql:="select * from red_envelope_goods where user_id = ? order by created_at desc limit ?,?"
+	err:=dao.runner.Find(&results,sql,userId,offset,limit)
+	if err!=nil{
+		logrus.Error(err)
+	}
+	return
+}
+
+func (dao *RedEnvelopeGoodsDao)ListReceivable(offset,size int)(results []RedEnvelopeGoods){
+	now:=time.Now()
+	sql:="select * from red_envelope_goods where remain_quantity > 0 and expired_at > ? order by created_at desc limit ?,?"
+	err:=dao.runner.Find(&results,sql,now,offset,size)
+	if err!=nil{
+		logrus.Error(err)
+	}
+	return
 }

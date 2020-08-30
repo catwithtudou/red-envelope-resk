@@ -70,8 +70,37 @@ func (d *itemDomain)FindItems(envelopeNo string)(itemsDto []*services.RedEnvelop
 		return nil
 	}
 	itemsDto = make([]*services.RedEnvelopeItemDTO,0)
-	for _,po:=range items{
-		itemsDto=append(itemsDto,po.ToDTO())
+	var luckItem *services.RedEnvelopeItemDTO
+	for i,po:=range items{
+		item:=po.ToDTO()
+
+		if i == 0 {
+			luckItem = item
+		} else {
+			if luckItem.Amount.Cmp(po.Amount) < 0 {
+				luckItem = item
+			}
+		}
+		itemsDto = append(itemsDto, item)
 	}
+	luckItem.IsLuckiest = true
+
 	return itemsDto
 }
+
+func (d *itemDomain) GetByUser(userId, envelopeNo string) (dto *services.RedEnvelopeItemDTO) {
+	err := base.Tx(func(runner *dbx.TxRunner) error {
+		dao := RedEnvelopeItemDao{runner: runner}
+		po := dao.GetByUser(envelopeNo, userId)
+		if po != nil {
+			dto = po.ToDTO()
+		}
+		return nil
+	})
+	if err != nil {
+		return nil
+	}
+	return dto
+}
+
+

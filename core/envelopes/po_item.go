@@ -20,6 +20,7 @@ type RedEnvelopeItem struct {
 	PayStatus    int             `db:"pay_status"`           //支付状态：未支付，支付中，已支付，支付失败
 	CreatedAt    time.Time       `db:"created_at,omitempty"` //创建时间
 	UpdatedAt    time.Time       `db:"updated_at,omitempty"` //更新时间
+	Desc         string          `db:"desc"`
 }
 
 func (po *RedEnvelopeItem) ToDTO() *services.RedEnvelopeItemDTO {
@@ -36,6 +37,8 @@ func (po *RedEnvelopeItem) ToDTO() *services.RedEnvelopeItemDTO {
 		PayStatus:    po.PayStatus,
 		CreatedAt:    po.CreatedAt,
 		UpdatedAt:    po.UpdatedAt,
+		Desc:         po.Desc,
+
 	}
 	return dto
 }
@@ -53,4 +56,6 @@ func (po *RedEnvelopeItem) FromDTO(dto *services.RedEnvelopeItemDTO) {
 	po.PayStatus = dto.PayStatus
 	po.CreatedAt = dto.CreatedAt
 	po.UpdatedAt = dto.UpdatedAt
+	po.Desc = dto.Desc
+
 }

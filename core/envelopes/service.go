@@ -74,11 +74,11 @@ func (r *redEnvelopeService) Receive(dto services.RedEnvelopeReceiveDTO) (item *
 	dto.AccountNo = account.AccountNo
 	//进行尝试收红包
 	domain := goodsDomain{}
-	//itemDomain := itemDomain{}
-	//item = itemDomain.GetByUser(dto.RecvUserId, dto.EnvelopeNo)
-	//if item != nil {
-	//	return item, nil
-	//}
+	itemDomain := itemDomain{}
+	item = itemDomain.GetByUser(dto.RecvUserId, dto.EnvelopeNo)
+	if item != nil {
+		return item, nil
+	}
 	item, err = domain.Receive(context.Background(), dto)
 	return item, err
 }
@@ -88,5 +88,50 @@ func (r *redEnvelopeService) Refund(envelopeNo string) (order *services.RedEnvel
 }
 
 func (r *redEnvelopeService) Get(envelopeNo string) (order *services.RedEnvelopeGoodsDTO) {
+	domain:=goodsDomain{}
+	po:=domain.GetOne(envelopeNo)
+	if po==nil{
+		return
+	}
+	return po.ToDTO()
+}
+
+func (r *redEnvelopeService) ListSent(userId string, page, size int) (orders []*services.RedEnvelopeGoodsDTO) {
+	domain := new(goodsDomain)
+	pos := domain.FindByUser(userId, page, size)
+	orders = make([]*services.RedEnvelopeGoodsDTO, 0, len(pos))
+	for _, p := range pos {
+		orders = append(orders, p.ToDTO())
+	}
+
 	return
 }
+
+func (r *redEnvelopeService) ListReceivable(page, size int) (orders []*services.RedEnvelopeGoodsDTO) {
+	domain := new(goodsDomain)
+
+	pos := domain.ListReceivable(page, size)
+	orders = make([]*services.RedEnvelopeGoodsDTO, 0, len(pos))
+	for _, p := range pos {
+		if p.RemainQuantity > 0 {
+			orders = append(orders, p.ToDTO())
+		}
+	}
+	return
+}
+
+func (r *redEnvelopeService) ListReceived(userId string, page, size int) (items []*services.RedEnvelopeItemDTO) {
+	domain := new(goodsDomain)
+	pos := domain.ListReceived(userId, page, size)
+	items = make([]*services.RedEnvelopeItemDTO, 0, len(pos))
+	for _, p := range pos {
+		items = append(items, p.ToDTO())
+	}
+	return
+}
+
+func (r *redEnvelopeService) ListItems(envelopeNo string) (items []*services.RedEnvelopeItemDTO) {
+	domain := itemDomain{}
+	return domain.FindItems(envelopeNo)
+}
+

@@ -42,7 +42,7 @@ func (dao *RedEnvelopeItemDao)FindItems(envelopeNo string)(res []*RedEnvelopeIte
 }
 
 //根据envelope和userId获取订单详情信息
-func (dao *RedEnvelopeItemDao)GetByUsr(envelopeNo,userId string)(res *RedEnvelopeItem){
+func (dao *RedEnvelopeItemDao)GetByUser(envelopeNo,userId string)(res *RedEnvelopeItem){
 	sql:="select * from red_envelope_item where envelope_no=? and user_id = ?"
 	ok,err:=dao.runner.Get(&res,sql,envelopeNo,userId)
 	if !ok{

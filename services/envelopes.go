@@ -23,6 +23,13 @@ type RedEnvelopeService interface {
 	Refund(envelopeNo string) (order *RedEnvelopeGoodsDTO)
 	//查询红包订单
 	Get(envelopeNo string) (order *RedEnvelopeGoodsDTO)
+
+	//查询用户已经发送的红包列表
+	ListSent(userId string, page, size int) (orders []*RedEnvelopeGoodsDTO)
+	ListReceived(userId string, page, size int) (items []*RedEnvelopeItemDTO)
+	//查询用户已经抢到的红包列表
+	ListReceivable(page, size int) (orders []*RedEnvelopeGoodsDTO)
+	ListItems(envelopeNo string) (items []*RedEnvelopeItemDTO)
 }
 
 type RedEnvelopeSendingDTO struct {
@@ -112,6 +119,8 @@ type RedEnvelopeItemDTO struct {
 	PayStatus    int             `json:"payStatus"`    //支付状态：未支付，支付中，已支付，支付失败
 	CreatedAt    time.Time       `json:"createdAt"`    //创建时间
 	UpdatedAt    time.Time       `json:"updatedAt"`    //更新时间
+	IsLuckiest   bool            `json:"isLuckiest"`
+	Desc         string          `json:"desc"`
 }
 
 func (r *RedEnvelopeItemDTO) CopyTo(item *RedEnvelopeItemDTO) {
@@ -126,4 +135,5 @@ func (r *RedEnvelopeItemDTO) CopyTo(item *RedEnvelopeItemDTO) {
 	item.PayStatus = r.PayStatus
 	item.CreatedAt = r.CreatedAt
 	item.UpdatedAt = r.UpdatedAt
+	item.Desc = r.Desc
 }

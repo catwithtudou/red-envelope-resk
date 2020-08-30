@@ -1,5 +1,10 @@
 package services
 
+const (
+	//默认常数
+	DefaultCurrencyCode = "CNY"
+)
+
 //转账状态
 type TransferedStatus int8
 

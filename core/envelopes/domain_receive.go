@@ -108,11 +108,11 @@ func (d *goodsDomain)transfer(ctx context.Context,dto services.RedEnvelopeReceiv
 		Amount:      d.item.Amount,
 		ChangeType:  services.EnvelopeOutgoing,
 		ChangeFlag:  services.FlagTransferOut,
-		Decs:        "红包支出",
+		Decs:        "红包扣减:"+dto.EnvelopeNo,
 	}
 	reDomain := accounts.NewAccountDomain()
 	status,err =reDomain.TransferWithContextTx(ctx, transfer)
-	if status!=services.TransferedStatusSuccess{
+	if err!=nil || status!=services.TransferedStatusSuccess{
 		return status,err
 	}
 
@@ -124,15 +124,9 @@ func (d *goodsDomain)transfer(ctx context.Context,dto services.RedEnvelopeReceiv
 		Amount:      d.item.Amount,
 		ChangeType:  services.EnvelopeIncoming,
 		ChangeFlag:  services.FlagTransferIn,
-		Decs:        "红包收入",
+		Decs:        "红包收入:"+dto.EnvelopeNo,
 	}
-	status,err =reDomain.TransferWithContextTx(ctx, transfer)
-	if status!=services.TransferedStatusSuccess{
-		return status,err
-	}
-
-	return
-
+	return reDomain.TransferWithContextTx(ctx, transfer)
 }
 
 //创建收红包的订单明细
