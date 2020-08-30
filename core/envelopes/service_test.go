@@ -155,3 +155,45 @@ func TestRedEnvelopeService_Receive(t *testing.T) {
 
 	})
 }
+
+
+func TestRedEnvelopeService_SendOut_Failure(t *testing.T) {
+	//发红包人的红包资金账户
+	ac := services.GetAccountService()
+	account := services.AccountCreatedDTO{
+		UserId:       ksuid.New().Next().String(),
+		Username:     "测试用户A",
+		Amount:       "10",
+		AccountName:  "测试账户A",
+		AccountType:  int(services.EnvelopeAccountType),
+		CurrencyCode: "CNY",
+	}
+	re := services.GetRedEnvelopeService()
+	Convey("准备资金账户", t, func() {
+		//准备资金账户
+		acDTO, err := ac.CreateAccount(account)
+		So(err, ShouldBeNil)
+		So(acDTO, ShouldNotBeNil)
+	})
+	Convey("发红红包	", t, func() {
+		Convey("发碰运气红包", func() {
+			goods := services.RedEnvelopeSendingDTO{
+				UserId:       account.UserId,
+				Username:     account.Username,
+				EnvelopeType: services.LuckyEnvelopeType,
+				Amount:       decimal.NewFromFloat(11),
+				Quantity:     10,
+				Blessing:     services.DefaultBlessing,
+			}
+			at, err := re.SendOut(goods)
+			So(err, ShouldNotBeNil)
+			So(at, ShouldBeNil)
+			a := ac.GetEnvelopeAccountByUserId(account.UserId)
+			So(a, ShouldNotBeNil)
+			So(a.Balance.String(), ShouldEqual, account.Amount)
+
+		})
+
+	})
+
+}

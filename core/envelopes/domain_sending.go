@@ -68,8 +68,8 @@ func (d *goodsDomain)SendOut(goods services.RedEnvelopeGoodsDTO)(activity *servi
 		}
 
 		status,err:=accountDomain.TransferWithContextTx(ctx,transfer)
-		if status==services.TransferedStatusSuccess{
-			return nil
+		if status!=services.TransferedStatusSuccess{
+			return err
 		}
 
 		//3.将扣减的红包总金额转入红包中间商的红包资金账户
@@ -85,7 +85,7 @@ func (d *goodsDomain)SendOut(goods services.RedEnvelopeGoodsDTO)(activity *servi
 		}
 		status,err=accountDomain.TransferWithContextTx(ctx,transfer)
 		if status==services.TransferedStatusSuccess{
-			return nil
+			return err
 		}
 
 		return err

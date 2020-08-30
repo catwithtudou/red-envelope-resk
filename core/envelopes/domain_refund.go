@@ -46,6 +46,7 @@ func (e *ExpiredEnvelopeDomain) Expired() (reFundEnvelopeGoods []*services.RedEn
 			logrus.Debugf("过期红包退款开始：%+v", g)
 			refund, err := e.ExpiredOne(g)
 			if err != nil {
+				logrus.Error(err)
 				return nil, err
 			}
 			reFundEnvelopeGoods = append(reFundEnvelopeGoods, refund)
@@ -75,7 +76,6 @@ func (e *ExpiredEnvelopeDomain) ExpiredOne(goods RedEnvelopeGoods) (reFundGoodsD
 		txCtx := base.WithValueContext(context.Background(), runner)
 		id, err := domain.Save(txCtx)
 		if err != nil || id == 0 {
-			logrus.Error(err)
 			return errors.New("创建退款订单失败")
 		}
 
@@ -83,7 +83,6 @@ func (e *ExpiredEnvelopeDomain) ExpiredOne(goods RedEnvelopeGoods) (reFundGoodsD
 		dao := RedEnvelopeGoodsDao{runner: runner}
 		rows, err := dao.UpdateOrderStatus(goods.EnvelopeNo, services.OrderExpired)
 		if err != nil || rows == 0 {
-			logrus.Error(err)
 			return errors.New("更新原订单状态失败")
 		}
 
@@ -112,12 +111,25 @@ func (e *ExpiredEnvelopeDomain) ExpiredOne(goods RedEnvelopeGoods) (reFundGoodsD
 			TradeTarget: target,
 			Amount:      goods.RemainAmount,
 			ChangeType:  services.EnvelopExpiredRefund,
-			ChangeFlag:  services.FlagTransferIn,
-			Decs:        "红包过期退款:" + goods.EnvelopeNo,
+			ChangeFlag:  services.FlagTransferOut,
+			Decs:        "红包过期退款支出:" + goods.EnvelopeNo,
 		}
 		status, err := accountDomain.TransferWithContextTx(txCtx,transfer)
 		if status != services.TransferedStatusSuccess {
-			logrus.Error(err)
+			return errors.New("转账失败")
+		}
+
+		transfer = services.AccountTransferDTO{
+			TradeNo:     refund.EnvelopeNo,
+			TradeBody:   target,
+			TradeTarget: body,
+			Amount:      goods.RemainAmount,
+			ChangeType:  services.EnvelopExpiredRefund,
+			ChangeFlag:  services.FlagTransferIn,
+			Decs:        "红包过期退款收入:" + goods.EnvelopeNo,
+		}
+		status, err = accountDomain.TransferWithContextTx(txCtx,transfer)
+		if status != services.TransferedStatusSuccess {
 			return errors.New("转账失败")
 		}
 
@@ -125,13 +137,11 @@ func (e *ExpiredEnvelopeDomain) ExpiredOne(goods RedEnvelopeGoods) (reFundGoodsD
 		//修改原订单状态
 		rows, err = dao.UpdateOrderStatus(goods.EnvelopeNo, services.OrderExpiredRefundSuccessful)
 		if err != nil || rows == 0 {
-			logrus.Error(err)
 			return errors.New("更新原订单状态失败")
 		}
 		//修改退款订单状态
 		rows, err = dao.UpdateOrderStatus(refund.EnvelopeNo, services.OrderExpiredRefundSuccessful)
 		if err != nil || rows == 0 {
-			logrus.Error(err)
 			return errors.New("更新退款订单状态失败")
 		}
 
@@ -140,7 +150,6 @@ func (e *ExpiredEnvelopeDomain) ExpiredOne(goods RedEnvelopeGoods) (reFundGoodsD
 		dao = RedEnvelopeGoodsDao{runner: runner}
 		reFundGoods := dao.GetOne(refund.EnvelopeNo)
 		if reFundGoods == nil {
-			logrus.Error(err)
 			return errors.New("退款订单查询失败")
 		}
 		reFundGoodsDTO = reFundGoods.ToDTO()

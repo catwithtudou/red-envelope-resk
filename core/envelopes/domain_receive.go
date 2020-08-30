@@ -90,28 +90,49 @@ func (d *goodsDomain)transfer(ctx context.Context,dto services.RedEnvelopeReceiv
 	//获取红包中间商户
 	systemAccount := base.GetSystemAccount()
 	//交易主体
-	target := services.TradeParticipator{
+	body := services.TradeParticipator{
 		AccountNo: systemAccount.AccountNo,
 		UserId:    systemAccount.UserId,
 		Username:  systemAccount.Username,
 	}
-	body := services.TradeParticipator{
+	target := services.TradeParticipator{
 		AccountNo: dto.AccountNo,
 		UserId:    dto.RecvUserId,
 		Username:  dto.RecvUsername,
 	}
-	//相对于红包中间商是支出
+	//红包中间商是支出
 	transfer := services.AccountTransferDTO{
 		TradeBody:   body,
 		TradeTarget: target,
+		TradeNo:     dto.EnvelopeNo,
+		Amount:      d.item.Amount,
+		ChangeType:  services.EnvelopeOutgoing,
+		ChangeFlag:  services.FlagTransferOut,
+		Decs:        "红包支出",
+	}
+	reDomain := accounts.NewAccountDomain()
+	status,err =reDomain.TransferWithContextTx(ctx, transfer)
+	if status!=services.TransferedStatusSuccess{
+		return status,err
+	}
+
+	//target是收入
+	transfer = services.AccountTransferDTO{
+		TradeBody:   target,
+		TradeTarget: body,
 		TradeNo:     dto.EnvelopeNo,
 		Amount:      d.item.Amount,
 		ChangeType:  services.EnvelopeIncoming,
 		ChangeFlag:  services.FlagTransferIn,
 		Decs:        "红包收入",
 	}
-	reDomain := accounts.NewAccountDomain()
-	return reDomain.TransferWithContextTx(ctx, transfer)
+	status,err =reDomain.TransferWithContextTx(ctx, transfer)
+	if status!=services.TransferedStatusSuccess{
+		return status,err
+	}
+
+	return
+
 }
 
 //创建收红包的订单明细
