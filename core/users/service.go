@@ -1,10 +1,10 @@
 package users
 
 import (
+	acountService "github.com/catwithtudou/red-envelope-account/services"
 	"github.com/catwithtudou/red-envelope-infra/base"
 	log "github.com/sirupsen/logrus"
 	"github.com/tietang/dbx"
-	"red-envelope/services"
 	"strconv"
 )
 
@@ -17,7 +17,7 @@ type UserService struct {
 }
 
 func (u *UserService) Login(mobile, username string) (user *User) {
-	as := services.GetAccountService()
+	as := acountService.GetAccountService()
 	err := base.Tx(func(runner *dbx.TxRunner) error {
 		dao := UserDao{runner: runner}
 		user = dao.GetOne(mobile)
@@ -58,12 +58,12 @@ func (u *UserService) Login(mobile, username string) (user *User) {
 	//创建资金账户
 	a := as.GetEnvelopeAccountByUserId(user.UserId)
 	if a == nil {
-		dto := services.AccountCreatedDTO{
+		dto := acountService.AccountCreatedDTO{
 			UserId:       user.UserId,
 			Username:     user.Username,
 			AccountName:  user.Username,
-			AccountType:  int(services.EnvelopeAccountType),
-			CurrencyCode: services.DefaultCurrencyCode,
+			AccountType:  int(acountService.EnvelopeAccountType),
+			CurrencyCode: acountService.DefaultCurrencyCode,
 			Amount:       "1000",
 		}
 		_, err := as.CreateAccount(dto)
