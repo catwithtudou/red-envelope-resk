@@ -8,10 +8,10 @@ import (
 	accountService "github.com/catwithtudou/red-envelope-account/services"
 	"github.com/catwithtudou/red-envelope-infra/algo"
 	"github.com/catwithtudou/red-envelope-infra/base"
+	"github.com/catwithtudou/red-envelope-resk/services"
 	"github.com/shopspring/decimal"
 	log "github.com/sirupsen/logrus"
 	"github.com/tietang/dbx"
-	"red-envelope/services"
 	"time"
 )
 

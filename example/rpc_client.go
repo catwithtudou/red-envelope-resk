@@ -4,7 +4,7 @@ import (
 	"github.com/shopspring/decimal"
 	"github.com/sirupsen/logrus"
 	"net/rpc"
-	"red-envelope/services"
+	"github.com/catwithtudou/red-envelope-resk/services"
 )
 
 /**

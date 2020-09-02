@@ -3,8 +3,8 @@ package envelopes
 import (
 	"fmt"
 	"github.com/catwithtudou/red-envelope-account/core/accounts"
+	"github.com/catwithtudou/red-envelope-resk/services"
 	. "github.com/smartystreets/goconvey/convey"
-	"red-envelope/services"
 	"testing"
 )
 

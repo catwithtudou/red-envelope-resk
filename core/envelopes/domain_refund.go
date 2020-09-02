@@ -6,9 +6,9 @@ import (
 	"github.com/catwithtudou/red-envelope-account/core/accounts"
 	accountService "github.com/catwithtudou/red-envelope-account/services"
 	"github.com/catwithtudou/red-envelope-infra/base"
+	"github.com/catwithtudou/red-envelope-resk/services"
 	"github.com/sirupsen/logrus"
 	"github.com/tietang/dbx"
-	"red-envelope/services"
 )
 
 /**

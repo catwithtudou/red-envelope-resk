@@ -2,11 +2,11 @@ package envelopes
 
 import (
 	accountService "github.com/catwithtudou/red-envelope-account/services"
+	"github.com/catwithtudou/red-envelope-resk/services"
 	"github.com/segmentio/ksuid"
 	"github.com/shopspring/decimal"
 	"github.com/sirupsen/logrus"
 	. "github.com/smartystreets/goconvey/convey"
-	"red-envelope/services"
 	"strconv"
 	"testing"
 )

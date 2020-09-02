@@ -3,11 +3,11 @@ package jobs
 import (
 	"fmt"
 	"github.com/catwithtudou/red-envelope-infra"
+	"github.com/catwithtudou/red-envelope-resk/core/envelopes"
 	"github.com/go-redsync/redsync"
 	"github.com/gomodule/redigo/redis"
 	"github.com/sirupsen/logrus"
 	"github.com/tietang/go-utils"
-	"red-envelope/core/envelopes"
 	"time"
 )
 

@@ -1,7 +1,7 @@
 package gorpc
 
 import (
-	"red-envelope/services"
+	"github.com/catwithtudou/red-envelope-resk/services"
 )
 
 /**

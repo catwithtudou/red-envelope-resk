@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/catwithtudou/red-envelope-infra"
+	_ "github.com/catwithtudou/red-envelope-resk"
 	"github.com/tietang/props/ini"
 	"github.com/tietang/props/kvs"
-	_ "red-envelope"
 )
 
 func main() {

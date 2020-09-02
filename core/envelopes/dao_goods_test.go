@@ -3,13 +3,13 @@ package envelopes
 import (
 	"database/sql"
 	"github.com/catwithtudou/red-envelope-infra/base"
+	"github.com/catwithtudou/red-envelope-resk/services"
+	_ "github.com/catwithtudou/red-envelope-resk/testx"
 	"github.com/segmentio/ksuid"
 	"github.com/shopspring/decimal"
 	"github.com/sirupsen/logrus"
 	. "github.com/smartystreets/goconvey/convey"
 	"github.com/tietang/dbx"
-	"red-envelope/services"
-	_ "red-envelope/testx"
 	"testing"
 	"time"
 )

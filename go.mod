@@ -1,4 +1,4 @@
-module red-envelope
+module github.com/catwithtudou/red-envelope-resk
 
 		go 1.12
 
