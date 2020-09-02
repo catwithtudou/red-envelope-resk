@@ -3,6 +3,7 @@ module red-envelope
 		go 1.12
 
 		require (
+		github.com/catwithtudou/red-envelope-account v0.1.0 // indiret
 		github.com/catwithtudou/red-envelope-infra v0.1.4 // indiret
 		github.com/go-playground/locales v0.13.0
 		github.com/go-playground/universal-translator v0.17.0

@@ -4,12 +4,13 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"github.com/catwithtudou/red-envelope-account/core/accounts"
+	accountService "github.com/catwithtudou/red-envelope-account/services"
 	"github.com/catwithtudou/red-envelope-infra/algo"
 	"github.com/catwithtudou/red-envelope-infra/base"
 	"github.com/shopspring/decimal"
 	log "github.com/sirupsen/logrus"
 	"github.com/tietang/dbx"
-	"red-envelope/core/accounts"
 	"red-envelope/services"
 	"time"
 )
@@ -70,7 +71,7 @@ func (d *goodsDomain) Receive(ctx context.Context, dto services.RedEnvelopeRecei
 
 		//7.将抢到的红包金额从系统红包中间账户转入当前用户的资金账户 : transfer
 		status, err := d.transfer(txCtx, dto)
-		if status == services.TransferedStatusSuccess {
+		if status == accountService.TransferedStatusSuccess {
 			return nil
 		}
 
@@ -81,44 +82,44 @@ func (d *goodsDomain) Receive(ctx context.Context, dto services.RedEnvelopeRecei
 }
 
 //红包转账
-func (d *goodsDomain) transfer(ctx context.Context, dto services.RedEnvelopeReceiveDTO) (status services.TransferedStatus, err error) {
+func (d *goodsDomain) transfer(ctx context.Context, dto services.RedEnvelopeReceiveDTO) (status accountService.TransferedStatus, err error) {
 	//获取红包中间商户
 	systemAccount := base.GetSystemAccount()
 	//交易主体
-	body := services.TradeParticipator{
+	body := accountService.TradeParticipator{
 		AccountNo: systemAccount.AccountNo,
 		UserId:    systemAccount.UserId,
 		Username:  systemAccount.Username,
 	}
-	target := services.TradeParticipator{
+	target := accountService.TradeParticipator{
 		AccountNo: dto.AccountNo,
 		UserId:    dto.RecvUserId,
 		Username:  dto.RecvUsername,
 	}
 	//红包中间商是支出
-	transfer := services.AccountTransferDTO{
+	transfer := accountService.AccountTransferDTO{
 		TradeBody:   body,
 		TradeTarget: target,
 		TradeNo:     dto.EnvelopeNo,
 		Amount:      d.item.Amount,
-		ChangeType:  services.EnvelopeOutgoing,
-		ChangeFlag:  services.FlagTransferOut,
+		ChangeType:  accountService.EnvelopeOutgoing,
+		ChangeFlag:  accountService.FlagTransferOut,
 		Decs:        "红包扣减:" + dto.EnvelopeNo,
 	}
 	reDomain := accounts.NewAccountDomain()
 	status, err = reDomain.TransferWithContextTx(ctx, transfer)
-	if err != nil || status != services.TransferedStatusSuccess {
+	if err != nil || status != accountService.TransferedStatusSuccess {
 		return status, err
 	}
 
 	//target是收入
-	transfer = services.AccountTransferDTO{
+	transfer = accountService.AccountTransferDTO{
 		TradeBody:   target,
 		TradeTarget: body,
 		TradeNo:     dto.EnvelopeNo,
 		Amount:      d.item.Amount,
-		ChangeType:  services.EnvelopeIncoming,
-		ChangeFlag:  services.FlagTransferIn,
+		ChangeType:  accountService.EnvelopeIncoming,
+		ChangeFlag:  accountService.FlagTransferIn,
 		Decs:        "红包收入:" + dto.EnvelopeNo,
 	}
 	return reDomain.TransferWithContextTx(ctx, transfer)

@@ -2,10 +2,11 @@ package envelopes
 
 import (
 	"context"
+	"github.com/catwithtudou/red-envelope-account/core/accounts"
+	accountService "github.com/catwithtudou/red-envelope-account/services"
 	"github.com/catwithtudou/red-envelope-infra/base"
 	"github.com/tietang/dbx"
 	"path"
-	"red-envelope/core/accounts"
 	"red-envelope/services"
 )
 
@@ -44,46 +45,46 @@ func (d *goodsDomain) SendOut(goods services.RedEnvelopeGoodsDTO) (activity *ser
 		//红包金额支付
 		//1.需要红包中间商的红包资金账户，定义在配置文件中，事先初始化到资金账户表中
 		//2.从红包发送人的资金账户中扣减红包金额
-		body := services.TradeParticipator{
+		body := accountService.TradeParticipator{
 			AccountNo: goods.AccountNo,
 			UserId:    goods.UserId,
 			Username:  goods.Username,
 		}
 		systemAccount := base.GetSystemAccount()
-		target := services.TradeParticipator{
+		target := accountService.TradeParticipator{
 			AccountNo: systemAccount.AccountNo,
 			Username:  systemAccount.Username,
 			UserId:    systemAccount.UserId,
 		}
 
-		transfer := services.AccountTransferDTO{
+		transfer := accountService.AccountTransferDTO{
 			TradeBody:   body,
 			TradeTarget: target,
 			TradeNo:     d.EnvelopeNo,
 			Amount:      d.Amount,
-			ChangeType:  services.EnvelopeOutgoing,
-			ChangeFlag:  services.FlagTransferOut,
+			ChangeType:  accountService.EnvelopeOutgoing,
+			ChangeFlag:  accountService.FlagTransferOut,
 			Decs:        "红包金额支付",
 		}
 
 		status, err := accountDomain.TransferWithContextTx(ctx, transfer)
-		if status != services.TransferedStatusSuccess {
+		if status != accountService.TransferedStatusSuccess {
 			return err
 		}
 
 		//3.将扣减的红包总金额转入红包中间商的红包资金账户
 		//入账
-		transfer = services.AccountTransferDTO{
+		transfer = accountService.AccountTransferDTO{
 			TradeBody:   target,
 			TradeTarget: body,
 			TradeNo:     d.EnvelopeNo,
 			Amount:      d.Amount,
-			ChangeType:  services.EnvelopeIncoming,
-			ChangeFlag:  services.FlagTransferIn,
+			ChangeType:  accountService.EnvelopeIncoming,
+			ChangeFlag:  accountService.FlagTransferIn,
 			Decs:        "红包金额转入",
 		}
 		status, err = accountDomain.TransferWithContextTx(ctx, transfer)
-		if status == services.TransferedStatusSuccess {
+		if status == accountService.TransferedStatusSuccess {
 			return err
 		}
 

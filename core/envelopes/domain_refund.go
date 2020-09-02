@@ -3,10 +3,11 @@ package envelopes
 import (
 	"context"
 	"errors"
+	"github.com/catwithtudou/red-envelope-account/core/accounts"
+	accountService "github.com/catwithtudou/red-envelope-account/services"
 	"github.com/catwithtudou/red-envelope-infra/base"
 	"github.com/sirupsen/logrus"
 	"github.com/tietang/dbx"
-	"red-envelope/core/accounts"
 	"red-envelope/services"
 )
 
@@ -88,7 +89,7 @@ func (e *ExpiredEnvelopeDomain) ExpiredOne(goods RedEnvelopeGoods) (reFundGoodsD
 
 		//调用资金账户接口进行转账
 		systemAccount := base.GetSystemAccount()
-		body := services.TradeParticipator{
+		body := accountService.TradeParticipator{
 			AccountNo: systemAccount.AccountNo,
 			UserId:    systemAccount.UserId,
 			Username:  systemAccount.Username,
@@ -99,37 +100,37 @@ func (e *ExpiredEnvelopeDomain) ExpiredOne(goods RedEnvelopeGoods) (reFundGoodsD
 		if account == nil {
 			return errors.New("没有找到该用户的红包资金账户:" + goods.UserId)
 		}
-		target := services.TradeParticipator{
+		target := accountService.TradeParticipator{
 			AccountNo: account.AccountNo,
 			UserId:    account.UserId,
 			Username:  account.Username,
 		}
 
-		transfer := services.AccountTransferDTO{
+		transfer := accountService.AccountTransferDTO{
 			TradeNo:     refund.EnvelopeNo,
 			TradeBody:   body,
 			TradeTarget: target,
 			Amount:      goods.RemainAmount,
-			ChangeType:  services.EnvelopExpiredRefund,
-			ChangeFlag:  services.FlagTransferOut,
+			ChangeType:  accountService.EnvelopExpiredRefund,
+			ChangeFlag:  accountService.FlagTransferOut,
 			Decs:        "红包过期退款支出:" + goods.EnvelopeNo,
 		}
 		status, err := accountDomain.TransferWithContextTx(txCtx, transfer)
-		if status != services.TransferedStatusSuccess {
+		if status != accountService.TransferedStatusSuccess {
 			return errors.New("转账失败")
 		}
 
-		transfer = services.AccountTransferDTO{
+		transfer = accountService.AccountTransferDTO{
 			TradeNo:     refund.EnvelopeNo,
 			TradeBody:   target,
 			TradeTarget: body,
 			Amount:      goods.RemainAmount,
-			ChangeType:  services.EnvelopExpiredRefund,
-			ChangeFlag:  services.FlagTransferIn,
+			ChangeType:  accountService.EnvelopExpiredRefund,
+			ChangeFlag:  accountService.FlagTransferIn,
 			Decs:        "红包过期退款收入:" + goods.EnvelopeNo,
 		}
 		status, err = accountDomain.TransferWithContextTx(txCtx, transfer)
-		if status != services.TransferedStatusSuccess {
+		if status != accountService.TransferedStatusSuccess {
 			return errors.New("转账失败")
 		}
 
