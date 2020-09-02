@@ -9,6 +9,7 @@ import (
 	_ "red-envelope/apis/web"
 	_ "red-envelope/core/envelopes"
 	"red-envelope/jobs"
+	_ "red-envelope/views"
 )
 
 func init() {
