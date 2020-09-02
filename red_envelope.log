@@ -24,30 +24,30 @@
                                                                            
 
 
-[38;5;37m[2020-08-30.14:54:25.019178][0m [32m INFO[0m[36m red-envelope/infra.(*starterRegister).Register(infra/starer.go:78):[0m Register starter: *base.PropsStarter
-[38;5;37m[2020-08-30.14:54:25.077988][0m [32m INFO[0m[36m red-envelope/infra.(*starterRegister).Register(infra/starer.go:78):[0m Register starter: *base.DbxDatabaseStarter
-[38;5;37m[2020-08-30.14:54:25.078965][0m [32m INFO[0m[36m red-envelope/infra.(*starterRegister).Register(infra/starer.go:78):[0m Register starter: *base.ValidatorStarter
-[38;5;37m[2020-08-30.14:54:25.078965][0m [32m INFO[0m[36m red-envelope/infra.(*starterRegister).Register(infra/starer.go:78):[0m Register starter: *base.GoRpcStarter
-[38;5;37m[2020-08-30.14:54:25.078965][0m [32m INFO[0m[36m red-envelope/infra.(*starterRegister).Register(infra/starer.go:78):[0m Register starter: *gorpc.GoRpcApiStarter
-[38;5;37m[2020-08-30.14:54:25.078965][0m [32m INFO[0m[36m red-envelope/infra.(*starterRegister).Register(infra/starer.go:78):[0m Register starter: *jobs.RefundExpiredJobStarter
-[38;5;37m[2020-08-30.14:54:25.078965][0m [32m INFO[0m[36m red-envelope/infra.(*starterRegister).Register(infra/starer.go:78):[0m Register starter: *base.IrisServerStarter
-[38;5;37m[2020-08-30.14:54:25.078965][0m [32m INFO[0m[36m red-envelope/infra.(*starterRegister).Register(infra/starer.go:78):[0m Register starter: *infra.WebApiStarter
-[38;5;37m[2020-08-30.14:54:25.080982][0m [32m INFO[0m[36m red-envelope/infra.(*BootApplication).init(infra/boot.go:34):[0m Initializing starters...
-[38;5;37m[2020-08-30.14:54:25.080982][0m [32m INFO[0m[36m red-envelope/infra/base.(*PropsStarter).Init(base/props.go:23):[0m 初始化配置.
-[38;5;37m[2020-08-30.14:54:25.081977][0m [32m INFO[0m[36m red-envelope/infra/base.RpcRegister(base/rpc.go:26):[0m goRPC Register : *gorpc.EnvelopeRpc
-[38;5;37m[2020-08-30.14:54:25.126592][0m [32m INFO[0m[36m red-envelope/infra.(*BootApplication).setup(infra/boot.go:45):[0m Setup starters...
-[38;5;37m[2020-08-30.14:54:25.127545][0m [32m INFO[0m[36m red-envelope/infra/base.(*DbxDatabaseStarter).Setup(base/dbx.go:33):[0m mysql.conn url:root:***@tcp(127.0.0.1:3306)/red_envelope?loc=Local&parseTime=true&charset=utf8&
+[38;5;37m[2020-08-30.14:54:25.019178][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra.(*starterRegister).Register(infra/starer.go:78):[0m Register starter: *base.PropsStarter
+[38;5;37m[2020-08-30.14:54:25.077988][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra.(*starterRegister).Register(infra/starer.go:78):[0m Register starter: *base.DbxDatabaseStarter
+[38;5;37m[2020-08-30.14:54:25.078965][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra.(*starterRegister).Register(infra/starer.go:78):[0m Register starter: *base.ValidatorStarter
+[38;5;37m[2020-08-30.14:54:25.078965][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra.(*starterRegister).Register(infra/starer.go:78):[0m Register starter: *base.GoRpcStarter
+[38;5;37m[2020-08-30.14:54:25.078965][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra.(*starterRegister).Register(infra/starer.go:78):[0m Register starter: *gorpc.GoRpcApiStarter
+[38;5;37m[2020-08-30.14:54:25.078965][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra.(*starterRegister).Register(infra/starer.go:78):[0m Register starter: *jobs.RefundExpiredJobStarter
+[38;5;37m[2020-08-30.14:54:25.078965][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra.(*starterRegister).Register(infra/starer.go:78):[0m Register starter: *base.IrisServerStarter
+[38;5;37m[2020-08-30.14:54:25.078965][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra.(*starterRegister).Register(infra/starer.go:78):[0m Register starter: *infra.WebApiStarter
+[38;5;37m[2020-08-30.14:54:25.080982][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra.(*BootApplication).init(infra/boot.go:34):[0m Initializing starters...
+[38;5;37m[2020-08-30.14:54:25.080982][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra/base.(*PropsStarter).Init(base/props.go:23):[0m 初始化配置.
+[38;5;37m[2020-08-30.14:54:25.081977][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra/base.RpcRegister(base/rpc.go:26):[0m goRPC Register : *gorpc.EnvelopeRpc
+[38;5;37m[2020-08-30.14:54:25.126592][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra.(*BootApplication).setup(infra/boot.go:45):[0m Setup starters...
+[38;5;37m[2020-08-30.14:54:25.127545][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra/base.(*DbxDatabaseStarter).Setup(base/dbx.go:33):[0m mysql.conn url:root:***@tcp(127.0.0.1:3306)/red_envelope?loc=Local&parseTime=true&charset=utf8&
 
 	up
 
-[38;5;37m[2020-08-30.14:54:25.165182][0m [32m INFO[0m[36m red-envelope/infra/base.(*DbxDatabaseStarter).Setup(base/dbx.go:38):[0m <nil>
-[38;5;37m[2020-08-30.14:54:25.165781][0m [32m INFO[0m[36m red-envelope/infra.(*BootApplication).start(infra/boot.go:57):[0m Starting starters...
-[38;5;37m[2020-08-30.14:54:25.167182][0m [32m INFO[0m[36m red-envelope/infra/base.(*GoRpcStarter).Start(base/rpc.go:49):[0m tcp port listened for rpc:8082
-[38;5;37m[2020-08-30.14:54:25.168169][0m [32m INFO[0m[36m red-envelope/infra/base.(*IrisServerStarter).Start(base/iris_server.go:38):[0m POST: /v1/account/create -> red-envelope/apis/web.createHandler() and 2 more
-[38;5;37m[2020-08-30.14:54:25.168169][0m [32m INFO[0m[36m red-envelope/infra/base.(*IrisServerStarter).Start(base/iris_server.go:38):[0m POST: /v1/account/transfer -> red-envelope/apis/web.transferHandler() and 2 more
-[38;5;37m[2020-08-30.14:54:25.168169][0m [32m INFO[0m[36m red-envelope/infra/base.(*IrisServerStarter).Start(base/iris_server.go:38):[0m GET: /v1/account/get -> red-envelope/apis/web.getAccountHandler() and 2 more
-[38;5;37m[2020-08-30.14:54:25.168169][0m [32m INFO[0m[36m red-envelope/infra/base.(*IrisServerStarter).Start(base/iris_server.go:38):[0m GET: /v1/account/envelope/get -> red-envelope/apis/web.getEnvelopeAccountHandler() and 2 more
-[38;5;37m[2020-08-30.14:54:25.168169][0m [32m INFO[0m[36m red-envelope/infra/base.(*IrisServerStarter).Start(base/iris_server.go:38):[0m POST: /v1/envelope/sendout -> red-envelope/apis/web.(*EnvelopeApi).sendOutHandler-fm() and 2 more
-[38;5;37m[2020-08-30.14:54:25.168169][0m [32m INFO[0m[36m red-envelope/infra/base.(*IrisServerStarter).Start(base/iris_server.go:38):[0m POST: /v1/envelope/receive -> red-envelope/apis/web.(*EnvelopeApi).receiveHandler-fm() and 2 more
+[38;5;37m[2020-08-30.14:54:25.165182][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra/base.(*DbxDatabaseStarter).Setup(base/dbx.go:38):[0m <nil>
+[38;5;37m[2020-08-30.14:54:25.165781][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra.(*BootApplication).start(infra/boot.go:57):[0m Starting starters...
+[38;5;37m[2020-08-30.14:54:25.167182][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra/base.(*GoRpcStarter).Start(base/rpc.go:49):[0m tcp port listened for rpc:8082
+[38;5;37m[2020-08-30.14:54:25.168169][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra/base.(*IrisServerStarter).Start(base/iris_server.go:38):[0m POST: /v1/account/create -> red-envelope/apis/web.createHandler() and 2 more
+[38;5;37m[2020-08-30.14:54:25.168169][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra/base.(*IrisServerStarter).Start(base/iris_server.go:38):[0m POST: /v1/account/transfer -> red-envelope/apis/web.transferHandler() and 2 more
+[38;5;37m[2020-08-30.14:54:25.168169][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra/base.(*IrisServerStarter).Start(base/iris_server.go:38):[0m GET: /v1/account/get -> red-envelope/apis/web.getAccountHandler() and 2 more
+[38;5;37m[2020-08-30.14:54:25.168169][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra/base.(*IrisServerStarter).Start(base/iris_server.go:38):[0m GET: /v1/account/envelope/get -> red-envelope/apis/web.getEnvelopeAccountHandler() and 2 more
+[38;5;37m[2020-08-30.14:54:25.168169][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra/base.(*IrisServerStarter).Start(base/iris_server.go:38):[0m POST: /v1/envelope/sendout -> red-envelope/apis/web.(*EnvelopeApi).sendOutHandler-fm() and 2 more
+[38;5;37m[2020-08-30.14:54:25.168169][0m [32m INFO[0m[36m github.com/catwithtudou/red-envelope-infra/base.(*IrisServerStarter).Start(base/iris_server.go:38):[0m POST: /v1/envelope/receive -> red-envelope/apis/web.(*EnvelopeApi).receiveHandler-fm() and 2 more
 Now listening on: http://localhost:8080
 Application started. Press CTRL+C to shut down.

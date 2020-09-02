@@ -1,9 +1,9 @@
 package users
 
 import (
+	"github.com/catwithtudou/red-envelope-infra/base"
 	log "github.com/sirupsen/logrus"
 	"github.com/tietang/dbx"
-	"red-envelope/infra/base"
 	"red-envelope/services"
 	"strconv"
 )
@@ -12,7 +12,6 @@ import (
  *@Author tudou
  *@Date 2020/8/30
  **/
-
 
 type UserService struct {
 }

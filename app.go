@@ -1,13 +1,13 @@
 package red_envelope
 
 import (
+	"github.com/catwithtudou/red-envelope-infra"
+	"github.com/catwithtudou/red-envelope-infra/base"
 	"red-envelope/apis/gorpc"
 	_ "red-envelope/apis/gorpc"
 	_ "red-envelope/apis/web"
 	_ "red-envelope/core/accounts"
 	_ "red-envelope/core/envelopes"
-	"red-envelope/infra"
-	"red-envelope/infra/base"
 	"red-envelope/jobs"
 )
 

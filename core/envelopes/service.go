@@ -3,9 +3,9 @@ package envelopes
 import (
 	"context"
 	"errors"
+	"github.com/catwithtudou/red-envelope-infra/base"
 	"github.com/shopspring/decimal"
 	log "github.com/sirupsen/logrus"
-	"red-envelope/infra/base"
 	"red-envelope/services"
 	"sync"
 )
@@ -14,18 +14,15 @@ var _ services.RedEnvelopeService = new(redEnvelopeService)
 
 var once sync.Once
 
-
-func init(){
+func init() {
 	once.Do(func() {
-		services.IRedEnvelopeService=new(redEnvelopeService)
+		services.IRedEnvelopeService = new(redEnvelopeService)
 	})
-	
+
 }
 
-type redEnvelopeService struct{
-	
+type redEnvelopeService struct {
 }
-
 
 //发红包
 func (r *redEnvelopeService) SendOut(dto services.RedEnvelopeSendingDTO) (activity *services.RedEnvelopeActivity, err error) {
@@ -56,18 +53,18 @@ func (r *redEnvelopeService) SendOut(dto services.RedEnvelopeSendingDTO) (activi
 		log.Error(err)
 	}
 
-	return activity,err
+	return activity, err
 }
 
 //收红包
 func (r *redEnvelopeService) Receive(dto services.RedEnvelopeReceiveDTO) (item *services.RedEnvelopeItemDTO, err error) {
 	//参数校验
-	if err = base.ValidateStruct(&dto);err!=nil{
-		return nil,err
+	if err = base.ValidateStruct(&dto); err != nil {
+		return nil, err
 	}
 
 	//获取当前收红包用户的账户信息
-	account:=services.GetAccountService().GetEnvelopeAccountByUserId(dto.RecvUserId)
+	account := services.GetAccountService().GetEnvelopeAccountByUserId(dto.RecvUserId)
 	if account == nil {
 		return nil, errors.New("红包资金账户不存在：user_id=" + dto.RecvUserId)
 	}
@@ -88,9 +85,9 @@ func (r *redEnvelopeService) Refund(envelopeNo string) (order *services.RedEnvel
 }
 
 func (r *redEnvelopeService) Get(envelopeNo string) (order *services.RedEnvelopeGoodsDTO) {
-	domain:=goodsDomain{}
-	po:=domain.GetOne(envelopeNo)
-	if po==nil{
+	domain := goodsDomain{}
+	po := domain.GetOne(envelopeNo)
+	if po == nil {
 		return
 	}
 	return po.ToDTO()
@@ -134,4 +131,3 @@ func (r *redEnvelopeService) ListItems(envelopeNo string) (items []*services.Red
 	domain := itemDomain{}
 	return domain.FindItems(envelopeNo)
 }
-

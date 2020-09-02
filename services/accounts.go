@@ -1,8 +1,8 @@
 package services
 
 import (
+	"github.com/catwithtudou/red-envelope-infra/base"
 	"github.com/shopspring/decimal"
-	"red-envelope/infra/base"
 	"time"
 )
 
@@ -13,7 +13,6 @@ func GetAccountService() AccountService {
 	base.Check(IAccountService)
 	return IAccountService
 }
-
 
 type AccountService interface {
 	CreateAccount(dto AccountCreatedDTO) (*AccountDTO, error)

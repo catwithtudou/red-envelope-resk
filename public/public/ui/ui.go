@@ -2,13 +2,13 @@ package views
 
 import (
 	"fmt"
+	"github.com/catwithtudou/red-envelope-infra"
+	"github.com/catwithtudou/red-envelope-infra/base"
 	"github.com/kataras/iris"
 	"github.com/shopspring/decimal"
 	log "github.com/sirupsen/logrus"
 	"path/filepath"
 	"red-envelope/core/users"
-	"red-envelope/infra"
-	"red-envelope/infra/base"
 	"red-envelope/services"
 	"runtime"
 	"strconv"

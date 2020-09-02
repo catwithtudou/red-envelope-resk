@@ -1,11 +1,11 @@
 package public
 
 import (
+	"github.com/catwithtudou/red-envelope-infra"
+	"github.com/catwithtudou/red-envelope-infra/base"
 	"github.com/kataras/iris"
 	"github.com/prometheus/common/log"
 	"path/filepath"
-	"red-envelope/infra"
-	"red-envelope/infra/base"
 	"runtime"
 	"strings"
 )

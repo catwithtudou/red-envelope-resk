@@ -1,12 +1,12 @@
 package accounts
 
 import (
+	"github.com/catwithtudou/red-envelope-infra/base"
 	"github.com/segmentio/ksuid"
 	"github.com/shopspring/decimal"
 	"github.com/sirupsen/logrus"
 	. "github.com/smartystreets/goconvey/convey"
 	"github.com/tietang/dbx"
-	"red-envelope/infra/base"
 	"red-envelope/services"
 	"testing"
 )

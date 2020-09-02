@@ -1,10 +1,10 @@
 package web
 
 import (
+	"github.com/catwithtudou/red-envelope-infra"
+	"github.com/catwithtudou/red-envelope-infra/base"
 	"github.com/kataras/iris"
 	"github.com/sirupsen/logrus"
-	"red-envelope/infra"
-	"red-envelope/infra/base"
 	"red-envelope/services"
 )
 
@@ -23,10 +23,10 @@ type AccountApi struct {
 
 func (a *AccountApi) Init() {
 	groupRouter := base.Iris().Party("/v1/account")
-	groupRouter.Post("/create",createHandler)
-	groupRouter.Post("/transfer",transferHandler)
-	groupRouter.Get("/get",getAccountHandler)
-	groupRouter.Get("/envelope/get",getEnvelopeAccountHandler)
+	groupRouter.Post("/create", createHandler)
+	groupRouter.Post("/transfer", transferHandler)
+	groupRouter.Get("/get", getAccountHandler)
+	groupRouter.Get("/envelope/get", getEnvelopeAccountHandler)
 }
 
 //账户创建：/v1/account/create
@@ -61,7 +61,7 @@ func createHandler(context iris.Context) {
 
 //转账：/v1/account/transfer
 //POST body json
-func transferHandler(ctx iris.Context){
+func transferHandler(ctx iris.Context) {
 	//获取请求参数
 	account := services.AccountTransferDTO{}
 	err := ctx.ReadJSON(&account)
@@ -93,19 +93,19 @@ func transferHandler(ctx iris.Context){
 }
 
 //查询红包账户：/v1/account/envelope/get
-func getEnvelopeAccountHandler(ctx iris.Context){
+func getEnvelopeAccountHandler(ctx iris.Context) {
 	userId := ctx.URLParam("userId")
-	r:=base.Res{
-		Code:base.ResCodeOk,
+	r := base.Res{
+		Code: base.ResCodeOk,
 	}
-	if userId==""{
+	if userId == "" {
 		r.Code = base.ResCodeRequestParamsError
 		r.Message = "the user id must be existed"
 		ctx.JSON(&r)
 		return
 	}
 
-	service:=services.GetAccountService()
+	service := services.GetAccountService()
 	account := service.GetEnvelopeAccountByUserId(userId)
 	r.Data = account
 	ctx.JSON(&r)
@@ -113,21 +113,21 @@ func getEnvelopeAccountHandler(ctx iris.Context){
 }
 
 //查询账户信息：/v1/account/get
-func getAccountHandler(ctx iris.Context){
+func getAccountHandler(ctx iris.Context) {
 	accountNo := ctx.URLParam("accountNo")
-	r:=base.Res{
-		Code:base.ResCodeOk,
+	r := base.Res{
+		Code: base.ResCodeOk,
 	}
-	if accountNo  == ""{
+	if accountNo == "" {
 		r.Code = base.ResCodeRequestParamsError
 		r.Message = "the account no must be existed"
 		ctx.JSON(&r)
 		return
 	}
 
-	service:=services.GetAccountService()
+	service := services.GetAccountService()
 	account := service.GetAccount(accountNo)
-	r.Data=account
+	r.Data = account
 	ctx.JSON(&r)
 	return
 }

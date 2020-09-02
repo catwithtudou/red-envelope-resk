@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"red-envelope/infra/algo"
+	"github.com/catwithtudou/red-envelope-infra/algo"
 )
 
 func main() {

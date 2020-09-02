@@ -1,11 +1,11 @@
 package views
 
 import (
+	"github.com/catwithtudou/red-envelope-infra"
+	"github.com/catwithtudou/red-envelope-infra/base"
 	"github.com/kataras/iris"
 	"path/filepath"
 	"red-envelope/core/users"
-	"red-envelope/infra"
-	"red-envelope/infra/base"
 	"runtime"
 )
 

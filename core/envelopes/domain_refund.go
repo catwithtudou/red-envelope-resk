@@ -3,10 +3,10 @@ package envelopes
 import (
 	"context"
 	"errors"
+	"github.com/catwithtudou/red-envelope-infra/base"
 	"github.com/sirupsen/logrus"
 	"github.com/tietang/dbx"
 	"red-envelope/core/accounts"
-	"red-envelope/infra/base"
 	"red-envelope/services"
 )
 
@@ -114,7 +114,7 @@ func (e *ExpiredEnvelopeDomain) ExpiredOne(goods RedEnvelopeGoods) (reFundGoodsD
 			ChangeFlag:  services.FlagTransferOut,
 			Decs:        "红包过期退款支出:" + goods.EnvelopeNo,
 		}
-		status, err := accountDomain.TransferWithContextTx(txCtx,transfer)
+		status, err := accountDomain.TransferWithContextTx(txCtx, transfer)
 		if status != services.TransferedStatusSuccess {
 			return errors.New("转账失败")
 		}
@@ -128,7 +128,7 @@ func (e *ExpiredEnvelopeDomain) ExpiredOne(goods RedEnvelopeGoods) (reFundGoodsD
 			ChangeFlag:  services.FlagTransferIn,
 			Decs:        "红包过期退款收入:" + goods.EnvelopeNo,
 		}
-		status, err = accountDomain.TransferWithContextTx(txCtx,transfer)
+		status, err = accountDomain.TransferWithContextTx(txCtx, transfer)
 		if status != services.TransferedStatusSuccess {
 			return errors.New("转账失败")
 		}

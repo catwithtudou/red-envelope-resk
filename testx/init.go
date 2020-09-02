@@ -1,10 +1,10 @@
 package testx
 
 import (
+	"github.com/catwithtudou/red-envelope-infra"
+	"github.com/catwithtudou/red-envelope-infra/base"
 	"github.com/tietang/props/ini"
 	"github.com/tietang/props/kvs"
-	"red-envelope/infra"
-	"red-envelope/infra/base"
 )
 
 func init() {
@@ -14,7 +14,6 @@ func init() {
 	//加载和解析配置文件
 	conf := ini.NewIniFileCompositeConfigSource(file)
 	base.InitLog(conf)
-
 
 	infra.Register(&base.PropsStarter{})
 	infra.Register(&base.DbxDatabaseStarter{})

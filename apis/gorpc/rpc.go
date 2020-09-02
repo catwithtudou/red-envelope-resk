@@ -1,8 +1,8 @@
 package gorpc
 
 import (
-	"red-envelope/infra"
-	"red-envelope/infra/base"
+	"github.com/catwithtudou/red-envelope-infra"
+	"github.com/catwithtudou/red-envelope-infra/base"
 )
 
 /**
